@@ -92,7 +92,7 @@
 
         .tap-hint {
             position: absolute;
-            top: 52%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: rgba(15, 5, 25, 0.8);
@@ -109,7 +109,7 @@
         }
 
         .message-box {
-            margin-bottom: 90px;
+            margin-bottom: 170px;
             text-align: center;
             min-height: 45px;
             display: flex;
@@ -133,20 +133,21 @@
             transform: translateY(0);
         }
 
-        /* Reproductor de Spotify Flotante */
+        /* Reproductor de Spotify con tu enlace exacto */
         .spotify-wrapper {
             position: absolute;
             bottom: 15px;
-            left: 15px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 100;
             pointer-events: auto;
-            width: 300px;
+            width: 360px;
             max-width: calc(100% - 30px);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 117, 151, 0.3);
             border: 1px solid rgba(255, 117, 151, 0.3);
-            background: rgba(10, 3, 18, 0.8);
+            background: rgba(10, 3, 18, 0.9);
             backdrop-filter: blur(10px);
         }
 
@@ -251,11 +252,9 @@
             .message-text { font-size: 1rem; }
             .spotify-wrapper {
                 bottom: 10px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 90%;
+                width: 92%;
             }
-            .message-box { margin-bottom: 110px; }
+            .message-box { margin-bottom: 185px; }
         }
     </style>
 </head>
@@ -279,12 +278,12 @@
         </div>
     </div>
 
-    <!-- Reproductor de Spotify con "Mi Mayor Anhelo - Banda MS" -->
+    <!-- Tu iframe de Spotify exacto -->
     <div class="spotify-wrapper">
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1Pnk8I76p3vj8Yp15RkscN?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0bBvuLFzIjrHm9PPyvohIA?utm_source=generator&si=9a8bb18e9d8a4fa2&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 
-    <!-- Modal de la Carta Romántica -->
+    <!-- Modal Carta Final -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="card">
             <h2>Monica Montserrat 🌹</h2>
@@ -397,7 +396,7 @@
 
         function drawRose() {
             const centerX = width / 2;
-            const centerY = height * 0.44;
+            const centerY = height * 0.40;
             const growth = Math.max(0.1, clicks / maxClicks);
             
             const stemStartY = height;
@@ -415,11 +414,11 @@
             if (growth > 0.2) {
                 ctx.fillStyle = '#3a8c48';
                 ctx.beginPath();
-                ctx.ellipse(centerX - 28, height * 0.65, 35 * growth, 14 * growth, -Math.PI / 4, 0, Math.PI * 2);
+                ctx.ellipse(centerX - 28, height * 0.60, 35 * growth, 14 * growth, -Math.PI / 4, 0, Math.PI * 2);
                 ctx.fill();
 
                 ctx.beginPath();
-                ctx.ellipse(centerX + 28, height * 0.58, 30 * growth, 12 * growth, Math.PI / 4, 0, Math.PI * 2);
+                ctx.ellipse(centerX + 28, height * 0.52, 30 * growth, 12 * growth, Math.PI / 4, 0, Math.PI * 2);
                 ctx.fill();
             }
             ctx.restore();
