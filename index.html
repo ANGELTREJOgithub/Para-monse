@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Mónica Montserrat 💖</title>
+    <title>Para Monica Montserrat 💖</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -46,7 +46,7 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 20px;
+            padding: 25px 15px;
         }
 
         .title-box {
@@ -56,27 +56,27 @@
 
         .title-box h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             color: #ff7597;
             text-shadow: 0 0 15px rgba(255, 117, 151, 0.6), 0 0 30px rgba(255, 20, 147, 0.4);
             letter-spacing: 2px;
         }
 
         .title-box p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #e2c0d8;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             margin-top: -5px;
             opacity: 0.9;
         }
 
         .progress-container {
-            width: 220px;
+            width: 200px;
             height: 4px;
             background: rgba(255, 255, 255, 0.15);
             border-radius: 10px;
-            margin: 12px auto 0;
+            margin: 10px auto 0;
             overflow: hidden;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
@@ -92,15 +92,15 @@
 
         .tap-hint {
             position: absolute;
-            top: 55%;
+            top: 52%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(15, 5, 25, 0.75);
+            background: rgba(15, 5, 25, 0.8);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 117, 151, 0.3);
-            padding: 12px 28px;
+            padding: 10px 24px;
             border-radius: 30px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #fff;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             animation: pulse 2s infinite;
@@ -109,17 +109,17 @@
         }
 
         .message-box {
-            margin-bottom: 20px;
+            margin-bottom: 90px;
             text-align: center;
-            min-height: 50px;
+            min-height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 20px;
+            padding: 0 15px;
         }
 
         .message-text {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: #fff0f5;
             font-style: italic;
             text-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 20px rgba(255,105,180,0.5);
@@ -133,33 +133,21 @@
             transform: translateY(0);
         }
 
-        /* Botón de Música Elegante */
-        .music-btn {
+        /* Reproductor de Spotify Flotante */
+        .spotify-wrapper {
             position: absolute;
-            bottom: 25px;
-            right: 25px;
+            bottom: 15px;
+            left: 15px;
             z-index: 100;
             pointer-events: auto;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.4rem;
-            color: #ff7597;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .music-btn:hover {
-            transform: scale(1.1);
-            background: rgba(255, 117, 151, 0.2);
-            box-shadow: 0 0 15px rgba(255, 117, 151, 0.6);
+            width: 300px;
+            max-width: calc(100% - 30px);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 117, 151, 0.3);
+            background: rgba(10, 3, 18, 0.8);
+            backdrop-filter: blur(10px);
         }
 
         /* Modal Carta Final */
@@ -190,8 +178,8 @@
             background: linear-gradient(145deg, rgba(28, 10, 30, 0.95), rgba(12, 4, 18, 0.98));
             border: 1px solid rgba(255, 117, 151, 0.35);
             border-radius: 24px;
-            padding: 40px 30px;
-            max-width: 440px;
+            padding: 35px 25px;
+            max-width: 420px;
             width: 100%;
             text-align: center;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 20, 147, 0.25);
@@ -205,25 +193,25 @@
 
         .card h2 {
             font-family: 'Great Vibes', cursive;
-            font-size: 3rem;
+            font-size: 2.8rem;
             color: #ff7597;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .card p {
             color: #ebdbe5;
-            font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 18px;
             font-weight: 300;
         }
 
         .card .highlight {
             color: #ff4757;
             font-weight: 600;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             display: block;
-            margin: 15px 0;
+            margin: 12px 0;
             text-shadow: 0 0 10px rgba(255, 71, 87, 0.4);
         }
 
@@ -231,8 +219,8 @@
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
             border: none;
             color: white;
-            padding: 12px 32px;
-            font-size: 1rem;
+            padding: 12px 30px;
+            font-size: 0.95rem;
             border-radius: 30px;
             cursor: pointer;
             box-shadow: 0 6px 20px rgba(255, 65, 108, 0.4);
@@ -257,11 +245,17 @@
         }
 
         @media (max-width: 600px) {
-            .title-box h1 { font-size: 2.7rem; }
-            .title-box p { font-size: 0.8rem; }
-            .tap-hint { font-size: 0.85rem; padding: 10px 20px; width: 85%; text-align: center; }
-            .message-text { font-size: 1.1rem; }
-            .card h2 { font-size: 2.5rem; }
+            .title-box h1 { font-size: 2.5rem; }
+            .title-box p { font-size: 0.75rem; }
+            .tap-hint { font-size: 0.8rem; padding: 8px 16px; width: 85%; text-align: center; }
+            .message-text { font-size: 1rem; }
+            .spotify-wrapper {
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+            }
+            .message-box { margin-bottom: 110px; }
         }
     </style>
 </head>
@@ -271,7 +265,7 @@
 
     <div class="ui-container">
         <div class="title-box">
-            <h1>Para Mónica Montserrat</h1>
+            <h1>Para Monica Montserrat</h1>
             <p>Una rosa que florece para ti</p>
             <div class="progress-container">
                 <div class="progress-bar" id="progressBar"></div>
@@ -285,13 +279,15 @@
         </div>
     </div>
 
-    <!-- Botón de música integrado -->
-    <div class="music-btn" id="musicBtn" title="Música de fondo">🎵</div>
+    <!-- Reproductor de Spotify con "Mi Mayor Anhelo - Banda MS" -->
+    <div class="spotify-wrapper">
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1Pnk8I76p3vj8Yp15RkscN?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
 
     <!-- Modal de la Carta Romántica -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="card">
-            <h2>Mónica Montserrat 🌹</h2>
+            <h2>Monica Montserrat 🌹</h2>
             <p>Así como esta rosa ha florecido completamente, mi amor por ti crece cada segundo más.</p>
             <p>Eres la persona más maravillosa de mi vida, la razón de mis sonrisas y mi más bonito pensamiento.</p>
             <span class="highlight">¡Te amo muchísimo, Monse! ❤️</span>
@@ -307,7 +303,6 @@
         const msgText = document.getElementById('msgText');
         const modalOverlay = document.getElementById('modalOverlay');
         const btnRestart = document.getElementById('btnRestart');
-        const musicBtn = document.getElementById('musicBtn');
 
         let width, height;
         let clicks = 0;
@@ -323,13 +318,11 @@
             "Mi lugar favorito es estar contigo...",
             "No hay nada en el mundo que se compare a ti...",
             "Eres el amor de mi vida...",
-            "¡Te amo con todo mi corazón, Mónica Montserrat! 💖"
+            "¡Te amo con todo mi corazón, Monica Montserrat! 💖"
         ];
 
         let particles = [];
         let stars = [];
-        let isAudioPlaying = false;
-        let audioCtx = null;
 
         function initCanvas() {
             width = canvas.width = window.innerWidth;
@@ -392,7 +385,6 @@
             ctx.fillStyle = grad;
             ctx.fillRect(0, 0, width, height);
 
-            // Estrellas
             ctx.fillStyle = "#ffffff";
             stars.forEach(s => {
                 ctx.globalAlpha = Math.sin(Date.now() * 0.002 + s.x) * 0.3 + 0.7;
@@ -405,10 +397,9 @@
 
         function drawRose() {
             const centerX = width / 2;
-            const centerY = height * 0.48;
+            const centerY = height * 0.44;
             const growth = Math.max(0.1, clicks / maxClicks);
             
-            // 1. Tallo continuo alineado al centro exacto
             const stemStartY = height;
             const stemEndY = centerY + 15;
             
@@ -421,24 +412,22 @@
             ctx.quadraticCurveTo(centerX - 25, (stemStartY + stemEndY) / 2, centerX, stemEndY);
             ctx.stroke();
 
-            // Hojas del tallo
             if (growth > 0.2) {
                 ctx.fillStyle = '#3a8c48';
                 ctx.beginPath();
-                ctx.ellipse(centerX - 28, height * 0.68, 35 * growth, 14 * growth, -Math.PI / 4, 0, Math.PI * 2);
+                ctx.ellipse(centerX - 28, height * 0.65, 35 * growth, 14 * growth, -Math.PI / 4, 0, Math.PI * 2);
                 ctx.fill();
 
                 ctx.beginPath();
-                ctx.ellipse(centerX + 28, height * 0.60, 30 * growth, 12 * growth, Math.PI / 4, 0, Math.PI * 2);
+                ctx.ellipse(centerX + 28, height * 0.58, 30 * growth, 12 * growth, Math.PI / 4, 0, Math.PI * 2);
                 ctx.fill();
             }
             ctx.restore();
 
-            // 2. Rosa (Flor)
             ctx.save();
             ctx.translate(centerX, centerY);
 
-            const baseRadius = Math.min(width, height) * 0.22 * (0.3 + growth * 0.7);
+            const baseRadius = Math.min(width, height) * 0.20 * (0.3 + growth * 0.7);
             const totalLayers = 8 + Math.floor(growth * 10);
 
             for (let i = totalLayers; i > 0; i--) {
@@ -470,7 +459,6 @@
                 }
             }
 
-            // Centro brillante
             ctx.beginPath();
             ctx.arc(0, 0, baseRadius * 0.18, 0, Math.PI * 2);
             ctx.fillStyle = '#ff1a40';
@@ -498,36 +486,8 @@
 
         render();
 
-        // Generador de acordes románticos en tiempo real (Banda / Balada)
-        function playRomanticTone() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-
-            const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25];
-            const note = notes[clicks % notes.length];
-
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(note, audioCtx.currentTime);
-
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.8);
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.start();
-            osc.stop(audioCtx.currentTime + 1.8);
-        }
-
         window.addEventListener('click', (e) => {
-            if (e.target.closest('.modal-overlay') || e.target.closest('.music-btn')) return;
+            if (e.target.closest('.modal-overlay') || e.target.closest('.spotify-wrapper')) return;
 
             if (clicks < maxClicks) {
                 clicks++;
@@ -545,7 +505,6 @@
                     msgText.classList.add('visible');
                 }, 150);
 
-                // Efectos de destello
                 const rect = canvas.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
@@ -554,22 +513,12 @@
                     particles.push(new Sparkle(x, y));
                 }
 
-                playRomanticTone();
-
                 if (clicks === maxClicks) {
                     setTimeout(() => {
                         modalOverlay.classList.add('active');
                     }, 1000);
                 }
             }
-        });
-
-        musicBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            isAudioPlaying = !isAudioPlaying;
-            musicBtn.style.transform = isAudioPlaying ? 'scale(1.2)' : 'scale(1)';
-            musicBtn.textContent = isAudioPlaying ? '💖' : '🎵';
-            playRomanticTone();
         });
 
         btnRestart.addEventListener('click', (e) => {
