@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Monica Montserrat 💖</title>
+    <title>Para Mónica Montserrat 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             user-select: none;
-            -webkit-user-select: none;
         }
 
         body, html {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: #05020a;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0a0312;
+            font-family: 'Poppins', sans-serif;
             color: #fff;
             cursor: pointer;
         }
@@ -33,8 +33,8 @@
             z-index: 1;
         }
 
-        /* Overlay e Interfaz */
-        .ui-layer {
+        /* Capa de interfaz */
+        .ui-container {
             position: absolute;
             top: 0;
             left: 0;
@@ -46,114 +46,132 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
+            padding: 30px 20px;
         }
 
-        .header {
+        .title-box {
             text-align: center;
-            margin-top: 15px;
-            text-shadow: 0 0 10px rgba(255, 105, 180, 0.7), 0 0 20px rgba(0, 0, 0, 0.8);
-            animation: fadeIn 2s ease-in;
+            animation: fadeInDown 1.5s ease-out;
         }
 
-        .header h1 {
-            font-size: 2.2rem;
-            color: #ff99cc;
-            font-weight: 700;
-            letter-spacing: 1px;
+        .title-box h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #ff7597;
+            text-shadow: 0 0 15px rgba(255, 117, 151, 0.6), 0 0 30px rgba(255, 20, 147, 0.4);
+            letter-spacing: 2px;
         }
 
-        .header p {
-            font-size: 1.1rem;
-            color: #e0e0e0;
-            margin-top: 5px;
+        .title-box p {
+            font-size: 0.95rem;
+            color: #e2c0d8;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: -5px;
+            opacity: 0.9;
         }
 
-        .hint {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 1rem;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
-            animation: pulseHint 2s infinite;
-            pointer-events: none;
-            transition: opacity 0.5s;
+        .progress-container {
+            width: 220px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            margin: 12px auto 0;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
         .progress-bar {
-            width: 80%;
-            max-width: 300px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        .progress-fill {
             height: 100%;
             width: 10%;
-            background: linear-gradient(90deg, #ff416c, #ff4b2b);
-            transition: width 0.4s ease;
+            background: linear-gradient(90deg, #ff4b2b, #ff416c, #ff7597);
+            border-radius: 10px;
+            transition: width 0.5s ease-out;
             box-shadow: 0 0 8px #ff416c;
         }
 
-        .floating-message {
+        .tap-hint {
             position: absolute;
-            bottom: 120px;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(15, 5, 25, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 117, 151, 0.3);
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: pulse 2s infinite;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .message-box {
+            margin-bottom: 20px;
             text-align: center;
-            font-size: 1.2rem;
-            color: #ffe6f0;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
-            font-style: italic;
-            opacity: 0;
-            transition: opacity 0.8s ease, transform 0.8s ease;
-            transform: translateY(10px);
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 0 20px;
         }
 
-        .floating-message.active {
+        .message-text {
+            font-size: 1.25rem;
+            color: #fff0f5;
+            font-style: italic;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 20px rgba(255,105,180,0.5);
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .message-text.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Reproductor de Spotify */
-        .spotify-container {
+        /* Botón de Música Elegante */
+        .music-btn {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
+            bottom: 25px;
+            right: 25px;
             z-index: 100;
             pointer-events: auto;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-            overflow: hidden;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.4rem;
+            color: #ff7597;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .spotify-container:hover {
-            transform: scale(1.02);
+        .music-btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 117, 151, 0.2);
+            box-shadow: 0 0 15px rgba(255, 117, 151, 0.6);
         }
 
         /* Modal Carta Final */
-        .letter-modal {
+        .modal-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(12px);
-            z-index: 50;
+            background: rgba(5, 2, 10, 0.88);
+            backdrop-filter: blur(15px);
+            z-index: 200;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -163,206 +181,192 @@
             padding: 20px;
         }
 
-        .letter-modal.active {
+        .modal-overlay.active {
             opacity: 1;
             pointer-events: auto;
         }
 
-        .letter-card {
-            background: linear-gradient(135deg, rgba(30, 10, 25, 0.95), rgba(15, 5, 20, 0.98));
-            border: 1px solid rgba(255, 105, 180, 0.4);
-            border-radius: 20px;
-            padding: 35px 25px;
-            max-width: 450px;
+        .card {
+            background: linear-gradient(145deg, rgba(28, 10, 30, 0.95), rgba(12, 4, 18, 0.98));
+            border: 1px solid rgba(255, 117, 151, 0.35);
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 440px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 0 30px rgba(255, 20, 147, 0.3);
-            transform: scale(0.8);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 20, 147, 0.25);
+            transform: scale(0.85);
             transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .letter-modal.active .letter-card {
+        .modal-overlay.active .card {
             transform: scale(1);
         }
 
-        .letter-card h2 {
-            color: #ff99cc;
-            font-size: 1.8rem;
+        .card h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #ff7597;
             margin-bottom: 15px;
         }
 
-        .letter-card p {
-            color: #f0e6ed;
+        .card p {
+            color: #ebdbe5;
             font-size: 1.05rem;
-            line-height: 1.6;
+            line-height: 1.7;
             margin-bottom: 20px;
+            font-weight: 300;
         }
 
-        .letter-card .highlight {
+        .card .highlight {
             color: #ff4757;
-            font-weight: bold;
-            font-size: 1.2rem;
+            font-weight: 600;
+            font-size: 1.25rem;
             display: block;
             margin: 15px 0;
+            text-shadow: 0 0 10px rgba(255, 71, 87, 0.4);
         }
 
         .btn-restart {
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
             border: none;
             color: white;
-            padding: 12px 28px;
+            padding: 12px 32px;
             font-size: 1rem;
-            border-radius: 25px;
+            border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+            box-shadow: 0 6px 20px rgba(255, 65, 108, 0.4);
             transition: all 0.3s ease;
-            pointer-events: auto;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
         .btn-restart:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(255, 65, 108, 0.6);
+            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.7);
         }
 
-        @keyframes pulseHint {
-            0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
             50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 600px) {
-            .header h1 { font-size: 1.6rem; }
-            .header p { font-size: 0.95rem; }
-            .hint { font-size: 0.85rem; width: 80%; text-align: center; }
-            .spotify-container {
-                bottom: 15px;
-                right: 50%;
-                transform: translateX(50%);
-                width: 280px;
-            }
-            .spotify-container:hover {
-                transform: translateX(50%) scale(1.02);
-            }
-            .floating-message { bottom: 110px; font-size: 1rem; }
+            .title-box h1 { font-size: 2.7rem; }
+            .title-box p { font-size: 0.8rem; }
+            .tap-hint { font-size: 0.85rem; padding: 10px 20px; width: 85%; text-align: center; }
+            .message-text { font-size: 1.1rem; }
+            .card h2 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="roseCanvas"></canvas>
+    <canvas id="canvas"></canvas>
 
-    <div class="ui-layer">
-        <div class="header">
-            <h1>Para Monica Montserrat 💖</h1>
-            <p>Una rosa que florece con nuestro amor</p>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+    <div class="ui-container">
+        <div class="title-box">
+            <h1>Para Mónica Montserrat</h1>
+            <p>Una rosa que florece para ti</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
             </div>
         </div>
 
-        <div class="hint" id="hint">Toca la pantalla para hacer florecer la rosa 🌹</div>
+        <div class="tap-hint" id="tapHint">Toca la pantalla para hacer florecer la rosa 🌹</div>
 
-        <div class="floating-message" id="floatingMsg">Cada toque revela un momento contigo...</div>
+        <div class="message-box">
+            <div class="message-text" id="msgText">Cada instante contigo es un regalo...</div>
+        </div>
     </div>
 
-    <!-- Reproductor de Spotify con la canción "Mi mayor anhelo" -->
-    <div class="spotify-container">
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1Pnk8I76p3vj8Yp15RkscN?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-    </div>
+    <!-- Botón de música integrado -->
+    <div class="music-btn" id="musicBtn" title="Música de fondo">🎵</div>
 
-    <!-- Modal Carta de Amor -->
-    <div class="letter-modal" id="letterModal">
-        <div class="letter-card">
-            <h2>Monica Montserrat 🌹</h2>
-            <p>Así como esta rosa floreció con cada toque, mi amor por ti crece cada segundo más.</p>
-            <p>Eres la persona más especial en mi vida, la razón de mis sonrisas y mi mayor alegría.</p>
+    <!-- Modal de la Carta Romántica -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="card">
+            <h2>Mónica Montserrat 🌹</h2>
+            <p>Así como esta rosa ha florecido completamente, mi amor por ti crece cada segundo más.</p>
+            <p>Eres la persona más maravillosa de mi vida, la razón de mis sonrisas y mi más bonito pensamiento.</p>
             <span class="highlight">¡Te amo muchísimo, Monse! ❤️</span>
             <button class="btn-restart" id="btnRestart">Volver a contemplar 🌸</button>
         </div>
     </div>
 
     <script>
-        const canvas = document.getElementById('roseCanvas');
+        const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
-        const hint = document.getElementById('hint');
-        const progressFill = document.getElementById('progressFill');
-        const floatingMsg = document.getElementById('floatingMsg');
-        const letterModal = document.getElementById('letterModal');
+        const progressBar = document.getElementById('progressBar');
+        const tapHint = document.getElementById('tapHint');
+        const msgText = document.getElementById('msgText');
+        const modalOverlay = document.getElementById('modalOverlay');
         const btnRestart = document.getElementById('btnRestart');
+        const musicBtn = document.getElementById('musicBtn');
 
         let width, height;
         let clicks = 0;
         const maxClicks = 10;
 
-        const messages = [
-            "Cada momento a tu lado es único...",
+        const loveMessages = [
+            "Cada momento a tu lado es mágico...",
             "Me haces el hombre más feliz del mundo...",
             "Tu sonrisa ilumina todos mis días...",
-            "Gracias por estar siempre conmigo...",
+            "Gracias por estar siempre en mi vida...",
             "Eres mi pensamiento favorito...",
-            "Contigo la vida se ve más bonita...",
-            "Mi lugar favorito es a tu lado...",
-            "No hay nada que me guste más que tú...",
-            "Eres lo más hermoso de mi vida...",
-            "Y por todo esto y más... ¡Te Amo! 💖"
-        ];
-
-        const skyGradients = [
-            ['#05020a', '#0f0c1b', '#1a0933'],
-            ['#0b071a', '#1a0c2e', '#2d0a42'],
-            ['#12071f', '#290b3b', '#47094b'],
-            ['#1a0624', '#380942', '#5f0850'],
-            ['#210526', '#490743', '#770851'],
-            ['#2b072b', '#5a0a43', '#8e0f50'],
-            ['#33082e', '#6a0d41', '#a2184d'],
-            ['#3b082e', '#79103e', '#b52347'],
-            ['#40072b', '#861239', '#c62e40'],
-            ['#450827', '#921533', '#d63a38']
+            "Contigo todo es más bonito...",
+            "Mi lugar favorito es estar contigo...",
+            "No hay nada en el mundo que se compare a ti...",
+            "Eres el amor de mi vida...",
+            "¡Te amo con todo mi corazón, Mónica Montserrat! 💖"
         ];
 
         let particles = [];
         let stars = [];
+        let isAudioPlaying = false;
+        let audioCtx = null;
 
-        function resize() {
+        function initCanvas() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
-            createStars();
+            generateStars();
         }
 
-        function createStars() {
+        function generateStars() {
             stars = [];
-            for (let i = 0; i < 150; i++) {
+            for (let i = 0; i < 180; i++) {
                 stars.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    size: Math.random() * 1.5 + 0.5,
+                    r: Math.random() * 1.5 + 0.3,
                     alpha: Math.random()
                 });
             }
         }
 
-        window.addEventListener('resize', resize);
-        resize();
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
 
-        class Particle {
+        class Sparkle {
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.size = Math.random() * 4 + 1;
-                this.speedX = (Math.random() - 0.5) * 4;
-                this.speedY = (Math.random() - 0.5) * 4 - 1;
-                this.color = `hsl(${Math.random() * 40 + 330}, 100%, ${Math.random() * 30 + 60}%)`;
+                this.size = Math.random() * 5 + 2;
+                this.vx = (Math.random() - 0.5) * 3;
+                this.vy = (Math.random() - 0.5) * 3 - 1;
+                this.color = `hsl(${Math.random() * 30 + 330}, 100%, ${Math.random() * 30 + 65}%)`;
                 this.alpha = 1;
                 this.decay = Math.random() * 0.02 + 0.01;
             }
 
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+                this.x += this.vx;
+                this.y += this.vy;
                 this.alpha -= this.decay;
             }
 
@@ -378,169 +382,202 @@
         }
 
         function drawBackground() {
-            const currentGradient = skyGradients[Math.min(clicks, maxClicks - 1)];
             const grad = ctx.createLinearGradient(0, 0, 0, height);
-            grad.addColorStop(0, currentGradient[0]);
-            grad.addColorStop(0.5, currentGradient[1]);
-            grad.addColorStop(1, currentGradient[2]);
+            const intensity = clicks / maxClicks;
+            
+            grad.addColorStop(0, '#0a0312');
+            grad.addColorStop(0.5, `rgb(${15 + intensity * 40}, ${5 + intensity * 10}, ${25 + intensity * 20})`);
+            grad.addColorStop(1, `rgb(${30 + intensity * 50}, ${8 + intensity * 15}, ${35 + intensity * 25})`);
+            
             ctx.fillStyle = grad;
             ctx.fillRect(0, 0, width, height);
 
+            // Estrellas
             ctx.fillStyle = "#ffffff";
-            stars.forEach(star => {
-                ctx.globalAlpha = Math.sin(Date.now() * 0.002 + star.x) * 0.3 + 0.7;
+            stars.forEach(s => {
+                ctx.globalAlpha = Math.sin(Date.now() * 0.002 + s.x) * 0.3 + 0.7;
                 ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
                 ctx.fill();
             });
             ctx.globalAlpha = 1;
         }
 
-        function drawStemAndLeaves(growth) {
+        function drawRose() {
             const centerX = width / 2;
-            const startY = height;
-            const endY = height * 0.45;
-
+            const centerY = height * 0.48;
+            const growth = Math.max(0.1, clicks / maxClicks);
+            
+            // 1. Tallo continuo alineado al centro exacto
+            const stemStartY = height;
+            const stemEndY = centerY + 15;
+            
             ctx.save();
-            ctx.strokeStyle = '#2d5a27';
-            ctx.lineWidth = 10;
+            ctx.strokeStyle = '#2d6a37';
+            ctx.lineWidth = 12;
             ctx.lineCap = 'round';
-
             ctx.beginPath();
-            ctx.moveTo(centerX, startY);
-            const currentEndY = startY - (startY - endY) * Math.min(1, growth * 1.2);
-            ctx.quadraticCurveTo(centerX - 20, (startY + currentEndY) / 2, centerX, currentEndY);
+            ctx.moveTo(centerX, stemStartY);
+            ctx.quadraticCurveTo(centerX - 25, (stemStartY + stemEndY) / 2, centerX, stemEndY);
             ctx.stroke();
 
-            if (growth > 0.3) {
-                const leafG = (growth - 0.3) / 0.7;
-                ctx.fillStyle = '#3a7d34';
-                
+            // Hojas del tallo
+            if (growth > 0.2) {
+                ctx.fillStyle = '#3a8c48';
                 ctx.beginPath();
-                ctx.ellipse(centerX - 25, height * 0.65, 30 * leafG, 12 * leafG, -Math.PI / 4, 0, Math.PI * 2);
+                ctx.ellipse(centerX - 28, height * 0.68, 35 * growth, 14 * growth, -Math.PI / 4, 0, Math.PI * 2);
                 ctx.fill();
 
-                if (growth > 0.5) {
-                    ctx.beginPath();
-                    ctx.ellipse(centerX + 25, height * 0.58, 25 * leafG, 10 * leafG, Math.PI / 4, 0, Math.PI * 2);
-                    ctx.fill();
-                }
+                ctx.beginPath();
+                ctx.ellipse(centerX + 28, height * 0.60, 30 * growth, 12 * growth, Math.PI / 4, 0, Math.PI * 2);
+                ctx.fill();
             }
             ctx.restore();
-        }
 
-        function drawRosePetals(growth) {
-            const centerX = width / 2;
-            const centerY = height * 0.45;
-            const baseRadius = Math.min(width, height) * 0.18 * growth;
-
-            if (growth <= 0) return;
-
+            // 2. Rosa (Flor)
             ctx.save();
             ctx.translate(centerX, centerY);
 
-            const layers = Math.floor(growth * 12) + 2;
+            const baseRadius = Math.min(width, height) * 0.22 * (0.3 + growth * 0.7);
+            const totalLayers = 8 + Math.floor(growth * 10);
 
-            for (let i = layers; i > 0; i--) {
-                const layerRadius = baseRadius * (i / 14);
-                const petalCount = 5 + i;
-                const rotationOffset = i * 0.5;
+            for (let i = totalLayers; i > 0; i--) {
+                const layerR = baseRadius * (i / (totalLayers + 2));
+                const petals = 5 + i;
+                const rotOffset = i * 0.6;
 
-                for (let j = 0; j < petalCount; j++) {
-                    const angle = (j / petalCount) * Math.PI * 2 + rotationOffset;
+                for (let j = 0; j < petals; j++) {
+                    const angle = (j / petals) * Math.PI * 2 + rotOffset;
                     ctx.save();
                     ctx.rotate(angle);
 
                     ctx.beginPath();
                     ctx.moveTo(0, 0);
-                    ctx.quadraticCurveTo(layerRadius * 0.8, -layerRadius * 1.2, layerRadius * 1.5, 0);
-                    ctx.quadraticCurveTo(layerRadius * 0.8, layerRadius * 1.2, 0, 0);
+                    ctx.quadraticCurveTo(layerR * 0.7, -layerR * 1.3, layerR * 1.4, 0);
+                    ctx.quadraticCurveTo(layerR * 0.7, layerR * 1.3, 0, 0);
 
-                    const lightness = 35 + (i / 14) * 25;
-                    const hue = 345 + (i % 3) * 5;
-                    ctx.fillStyle = `hsl(${hue}, 90%, ${lightness}%)`;
-                    ctx.shadowColor = 'rgba(0,0,0,0.4)';
-                    ctx.shadowBlur = 8;
+                    const lightness = 25 + (i / totalLayers) * 35;
+                    ctx.fillStyle = `hsl(345, 90%, ${lightness}%)`;
+                    ctx.shadowColor = 'rgba(0, 0, 0, 0.4)';
+                    ctx.shadowBlur = 10;
                     ctx.fill();
 
-                    ctx.strokeStyle = `hsl(${hue}, 100%, ${lightness + 10}%)`;
-                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = `hsl(345, 100%, ${lightness + 12}%)`;
+                    ctx.lineWidth = 1.5;
                     ctx.stroke();
 
                     ctx.restore();
                 }
             }
 
+            // Centro brillante
             ctx.beginPath();
-            ctx.arc(0, 0, baseRadius * 0.15, 0, Math.PI * 2);
+            ctx.arc(0, 0, baseRadius * 0.18, 0, Math.PI * 2);
             ctx.fillStyle = '#ff1a40';
+            ctx.shadowColor = '#ff4757';
+            ctx.shadowBlur = 15;
             ctx.fill();
 
             ctx.restore();
         }
 
-        function animate() {
+        function render() {
             ctx.clearRect(0, 0, width, height);
 
-            const growth = clicks / maxClicks;
-
             drawBackground();
-            drawStemAndLeaves(growth);
-            drawRosePetals(growth);
+            drawRose();
 
-            particles.forEach((p, index) => {
+            particles.forEach((p, idx) => {
                 p.update();
                 p.draw();
-                if (p.alpha <= 0) particles.splice(index, 1);
+                if (p.alpha <= 0) particles.splice(idx, 1);
             });
 
-            requestAnimationFrame(animate);
+            requestAnimationFrame(render);
         }
 
-        animate();
+        render();
+
+        // Generador de acordes románticos en tiempo real (Banda / Balada)
+        function playRomanticTone() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25];
+            const note = notes[clicks % notes.length];
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(note, audioCtx.currentTime);
+
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.8);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1.8);
+        }
 
         window.addEventListener('click', (e) => {
-            // Evitar que el clic cuente si se interactúa con el reproductor de Spotify o el botón de la carta
-            if (e.target.closest('.spotify-container') || e.target.closest('.letter-modal')) return;
+            if (e.target.closest('.modal-overlay') || e.target.closest('.music-btn')) return;
 
             if (clicks < maxClicks) {
                 clicks++;
 
-                if (hint) {
-                    hint.style.opacity = '0';
-                    setTimeout(() => hint.remove(), 500);
+                if (tapHint) {
+                    tapHint.style.opacity = '0';
+                    setTimeout(() => tapHint.remove(), 600);
                 }
 
-                progressFill.style.width = `${(clicks / maxClicks) * 100}%`;
+                progressBar.style.width = `${(clicks / maxClicks) * 100}%`;
 
-                floatingMsg.classList.remove('active');
+                msgText.classList.remove('visible');
                 setTimeout(() => {
-                    floatingMsg.textContent = messages[clicks - 1];
-                    floatingMsg.classList.add('active');
-                }, 200);
+                    msgText.textContent = loveMessages[clicks - 1];
+                    msgText.classList.add('visible');
+                }, 150);
 
+                // Efectos de destello
                 const rect = canvas.getBoundingClientRect();
-                const clickX = e.clientX - rect.left;
-                const clickY = e.clientY - rect.top;
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
 
-                for (let i = 0; i < 25; i++) {
-                    particles.push(new Particle(clickX, clickY));
+                for (let i = 0; i < 30; i++) {
+                    particles.push(new Sparkle(x, y));
                 }
+
+                playRomanticTone();
 
                 if (clicks === maxClicks) {
                     setTimeout(() => {
-                        letterModal.classList.add('active');
-                    }, 1200);
+                        modalOverlay.classList.add('active');
+                    }, 1000);
                 }
             }
+        });
+
+        musicBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isAudioPlaying = !isAudioPlaying;
+            musicBtn.style.transform = isAudioPlaying ? 'scale(1.2)' : 'scale(1)';
+            musicBtn.textContent = isAudioPlaying ? '💖' : '🎵';
+            playRomanticTone();
         });
 
         btnRestart.addEventListener('click', (e) => {
             e.stopPropagation();
             clicks = 0;
-            progressFill.style.width = '10%';
-            letterModal.classList.remove('active');
-            floatingMsg.classList.remove('active');
+            progressBar.style.width = '10%';
+            modalOverlay.classList.remove('active');
+            msgText.classList.remove('visible');
         });
     </script>
 </body>
