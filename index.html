@@ -95,12 +95,12 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(15, 5, 25, 0.8);
+            background: rgba(15, 5, 25, 0.85);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 117, 151, 0.3);
-            padding: 10px 24px;
+            padding: 12px 26px;
             border-radius: 30px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #fff;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             animation: pulse 2s infinite;
@@ -109,7 +109,7 @@
         }
 
         .message-box {
-            margin-bottom: 170px;
+            margin-bottom: 25px;
             text-align: center;
             min-height: 45px;
             display: flex;
@@ -119,7 +119,7 @@
         }
 
         .message-text {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: #fff0f5;
             font-style: italic;
             text-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 20px rgba(255,105,180,0.5);
@@ -133,22 +133,26 @@
             transform: translateY(0);
         }
 
-        /* Reproductor de Spotify con tu enlace exacto */
+        /* Reproductor de Spotify acomodado abajito a la izquierda */
         .spotify-wrapper {
             position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 20px;
+            left: 20px;
             z-index: 100;
             pointer-events: auto;
-            width: 360px;
-            max-width: calc(100% - 30px);
+            width: 320px;
+            max-width: calc(100% - 40px);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 117, 151, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 117, 151, 0.2);
             border: 1px solid rgba(255, 117, 151, 0.3);
-            background: rgba(10, 3, 18, 0.9);
+            background: rgba(10, 3, 18, 0.85);
             backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .spotify-wrapper:hover {
+            transform: scale(1.02);
         }
 
         /* Modal Carta Final */
@@ -251,10 +255,15 @@
             .tap-hint { font-size: 0.8rem; padding: 8px 16px; width: 85%; text-align: center; }
             .message-text { font-size: 1rem; }
             .spotify-wrapper {
-                bottom: 10px;
-                width: 92%;
+                bottom: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
             }
-            .message-box { margin-bottom: 185px; }
+            .spotify-wrapper:hover {
+                transform: translateX(-50%) scale(1.02);
+            }
+            .message-box { margin-bottom: 110px; }
         }
     </style>
 </head>
@@ -278,9 +287,9 @@
         </div>
     </div>
 
-    <!-- Tu iframe de Spotify exacto -->
+    <!-- Reproductor de Spotify perfectamente ajustado -->
     <div class="spotify-wrapper">
-        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0bBvuLFzIjrHm9PPyvohIA?utm_source=generator&si=9a8bb18e9d8a4fa2&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0bBvuLFzIjrHm9PPyvohIA?utm_source=generator&si=9a8bb18e9d8a4fa2&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 
     <!-- Modal Carta Final -->
@@ -306,6 +315,7 @@
         let width, height;
         let clicks = 0;
         const maxClicks = 10;
+        let audioCtx = null;
 
         const loveMessages = [
             "Cada momento a tu lado es mágico...",
@@ -396,7 +406,7 @@
 
         function drawRose() {
             const centerX = width / 2;
-            const centerY = height * 0.40;
+            const centerY = height * 0.44;
             const growth = Math.max(0.1, clicks / maxClicks);
             
             const stemStartY = height;
@@ -414,11 +424,11 @@
             if (growth > 0.2) {
                 ctx.fillStyle = '#3a8c48';
                 ctx.beginPath();
-                ctx.ellipse(centerX - 28, height * 0.60, 35 * growth, 14 * growth, -Math.PI / 4, 0, Math.PI * 2);
+                ctx.ellipse(centerX - 28, height * 0.62, 35 * growth, 14 * growth, -Math.PI / 4, 0, Math.PI * 2);
                 ctx.fill();
 
                 ctx.beginPath();
-                ctx.ellipse(centerX + 28, height * 0.52, 30 * growth, 12 * growth, Math.PI / 4, 0, Math.PI * 2);
+                ctx.ellipse(centerX + 28, height * 0.54, 30 * growth, 12 * growth, Math.PI / 4, 0, Math.PI * 2);
                 ctx.fill();
             }
             ctx.restore();
@@ -485,6 +495,34 @@
 
         render();
 
+        // Notas musicales armónicas al dar clic
+        function playClickTone() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25, 587.33, 659.25];
+            const note = notes[(clicks - 1) % notes.length];
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(note, audioCtx.currentTime);
+
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1.5);
+        }
+
         window.addEventListener('click', (e) => {
             if (e.target.closest('.modal-overlay') || e.target.closest('.spotify-wrapper')) return;
 
@@ -511,6 +549,9 @@
                 for (let i = 0; i < 30; i++) {
                     particles.push(new Sparkle(x, y));
                 }
+
+                // Reproduce el tono bonito al dar clic
+                playClickTone();
 
                 if (clicks === maxClicks) {
                     setTimeout(() => {
