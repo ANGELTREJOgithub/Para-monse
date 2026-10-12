@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-user-scalable=no">
+    <title>Para ti, Mónica Montserrat 🌹</title>
+    <!-- Tailwind CSS for modern responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+        
+        .font-cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Smooth background transition backgrounds */
+        .bg-view-1 { background: linear-gradient(135deg, #0f172a, #3b0764, #1e1b4b); } /* Twilight night */
+        .bg-view-2 { background: linear-gradient(135deg, #2e1065, #701a75, #831843); } /* Romantic Violet Sunset */
+        .bg-view-3 { background: linear-gradient(135deg, #4c0519, #881337, #9f1239); } /* Crimson Velvet Glow */
+        .bg-view-4 { background: linear-gradient(135deg, #1e1b4b, #312e81, #4338ca); } /* Starry Indigo Sky */
+        .bg-view-5 { background: linear-gradient(135deg, #450a0a, #78350f, #92400e); } /* Golden Dusk */
+        .bg-view-6 { background: linear-gradient(135deg, #022c22, #064e3b, #0f766e); } /* Aurora Teal */
+        .bg-view-7 { background: linear-gradient(135deg, #31103f, #6b21a8, #be185d); } /* Dreamy Magenta */
+        .bg-view-8 { background: linear-gradient(135deg, #0f172a, #1e293b, #334155); } /* Deep Cosmos */
+        .bg-view-9 { background: linear-gradient(135deg, #500724, #881337, #f43f5e); } /* Radiant Passion */
+        .bg-view-10 { background: linear-gradient(135deg, #111827, #4c0519, #be123c); } /* Grand Finale Glow */
+
+        /* Floating text toasts */
+        .toast-msg {
+            animation: floatUpFade 3s ease-out forwards;
+        }
+
+        @keyframes floatUpFade {
+            0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+            15% { opacity: 1; transform: translateY(0) scale(1.05); }
+            80% { opacity: 1; transform: translateY(-15px) scale(1); }
+            100% { opacity: 0; transform: translateY(-35px) scale(0.95); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(244, 63, 94, 0.6)); }
+            50% { filter: drop-shadow(0 0 30px rgba(244, 63, 94, 0.9)); }
+        }
+
+        .rose-glow {
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+
+        /* Glassmorphism card */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        /* Custom scrollbar for letter modal */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(244, 63, 94, 0.5);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body id="bodyBg" class="bg-view-1 min-h-screen w-screen relative overflow-hidden transition-all duration-1000 select-none flex flex-col justify-between items-center text-white">
+
+    <!-- Background Canvas for Particles, Aurora Stars and Sparkles -->
+    <canvas id="bgCanvas" class="absolute inset-0 z-0 pointer-events-none"></canvas>
+
+    <!-- Top Header Overlay -->
+    <header class="relative z-10 text-center pt-6 px-4 max-w-xl w-full">
+        <div class="glass-panel px-6 py-3 rounded-full shadow-2xl inline-block border border-rose-400/30">
+            <h1 class="text-2xl sm:text-4xl font-bold font-cursive tracking-wide text-rose-200 drop-shadow-md">
+                Para: Mónica Montserrat <span class="animate-pulse inline-block">🌹</span>
+            </h1>
+        </div>
+        
+        <!-- Interactive Helper Instructions -->
+        <div class="mt-3">
+            <p id="instructionText" class="text-sm sm:text-base font-light text-rose-100/90 bg-black/20 px-4 py-1.5 rounded-full inline-block backdrop-blur-md">
+                <i class="fa-solid fa-hand-pointer mr-1 animate-bounce"></i> 
+                Haz clic o toca en la pantalla para hacer florecer la rosa y descubrir la vista ✨
+            </p>
+        </div>
+
+        <!-- Progress Counter Bar -->
+        <div class="mt-3 max-w-xs mx-auto flex items-center gap-2 px-4">
+            <div class="w-full bg-white/10 rounded-full h-2.5 overflow-hidden backdrop-blur-sm p-0.5 border border-white/10">
+                <div id="progressBar" class="bg-gradient-to-r from-rose-500 to-amber-300 h-full rounded-full transition-all duration-500 w-[10%]"></div>
+            </div>
+            <span id="clickCounter" class="text-xs font-semibold text-rose-200 min-w-[45px] text-right">1 / 10</span>
+        </div>
+    </header>
+
+    <!-- Center Interactive Area: Rose Canvas & Popups -->
+    <main class="relative z-10 flex-1 flex flex-col items-center justify-center w-full max-w-lg px-4 my-2">
+        
+        <!-- Floating Romantic Message Toast Container -->
+        <div id="toastContainer" class="absolute top-2 w-full flex flex-col items-center pointer-events-none z-30"></div>
+
+        <!-- Interactive Rose Canvas Container -->
+        <div class="relative flex items-center justify-center cursor-pointer group my-auto">
+            <!-- Pulsing Backlight Aura -->
+            <div id="roseBacklight" class="absolute w-64 h-64 bg-rose-600/30 rounded-full blur-3xl transition-all duration-700 pointer-events-none"></div>
+
+            <!-- Rose Canvas -->
+            <canvas id="roseCanvas" class="relative z-10 rose-glow transition-transform duration-500 cursor-pointer active:scale-95"></canvas>
+        </div>
+
+        <p class="text-xs text-rose-200/60 font-light mt-1 animate-pulse text-center">
+            (Toca en cualquier parte para continuar)
+        </p>
+    </main>
+
+    <!-- Bottom Controls & Music Toggle -->
+    <footer class="relative z-10 pb-6 px-4 text-center w-full max-w-md">
+        <div class="flex items-center justify-center gap-3">
+            <button id="soundToggleBtn" onclick="toggleAudio()" class="glass-panel hover:bg-white/20 active:scale-95 transition text-xs sm:text-sm px-4 py-2 rounded-full flex items-center gap-2 border border-white/20 text-rose-100 shadow-lg">
+                <i id="soundIcon" class="fa-solid fa-volume-xmark text-rose-400"></i>
+                <span id="soundText">Música de fondo: Desactivada</span>
+            </button>
+            <button onclick="resetBloom()" class="glass-panel hover:bg-white/20 active:scale-95 transition text-xs sm:text-sm p-2 rounded-full border border-white/20 text-rose-100 shadow-lg" title="Reiniciar florecimiento">
+                <i class="fa-solid fa-rotate-right"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Love Letter Final Modal -->
+    <div id="loveModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-700">
+        <div class="glass-panel bg-gradient-to-b from-rose-950/90 to-purple-950/90 border border-rose-400/40 max-w-lg w-full rounded-3xl p-6 sm:p-8 text-center shadow-2xl relative transform scale-90 transition-transform duration-700 custom-scroll max-h-[90vh] overflow-y-auto" id="modalCard">
+            
+            <!-- Floating Top Icon -->
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-tr from-rose-500 to-pink-400 flex items-center justify-center shadow-lg shadow-rose-500/50 animate-bounce">
+                <i class="fa-solid fa-heart text-2xl text-white"></i>
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl font-bold font-cursive text-rose-200 mb-2">
+                ¡Mónica Montserrat!
+            </h2>
+            <p class="text-rose-400 font-medium text-sm tracking-widest uppercase mb-4">
+                ❤️ TE AMO MUCHÍSIMO ❤️
+            </p>
+
+            <div class="space-y-4 text-sm sm:text-base text-rose-100/90 font-light leading-relaxed border-t border-b border-rose-500/20 py-4 text-left sm:text-center">
+                <p>
+                    Mónica Montserrat, desde que llegaste a mi vida, cada día se llena de colores, sonrisas y momentos mágicos. Eres mi persona favorita, mi refugio y el motivo de mis mayores alegrías.
+                </p>
+                <p>
+                    Esta rosa fue creciendo con cada uno de mis pensamientos hacia ti, porque así de grande e infinito es el amor que siento por ti.
+                </p>
+                <p class="font-medium text-rose-200 text-center text-base">
+                    ¡Gracias por ser la mujer extraordinaria que eres y por iluminar mi mundo todos los días! ✨
+                </p>
+            </div>
+
+            <!-- Footer Action Button -->
+            <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <button onclick="resetBloom()" class="w-full sm:w-auto bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg shadow-rose-600/40 transition active:scale-95 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-sparkles"></i> Volver a vivir la magia
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* --- STATE MANAGEMENT --- */
+        let clickCount = 1;
+        const maxClicks = 10;
+        let isAudioPlaying = false;
+        let audioCtx = null;
+        let isModalOpen = false;
+
+        const messages = [
+            "Mónica Montserrat, eres lo mejor que me ha pasado en la vida 💖",
+            "Tu sonrisa ilumina hasta el día más oscuro 🌟",
+            "Te amo con todo mi corazón y con toda mi alma 💕",
+            "Cada segundo a tu lado es un regalo maravilloso ✨",
+            "Eres mi pensamiento favorito al despertar 🌹",
+            "Contigo el mundo es un lugar mucho más hermoso 🌈",
+            "Eres mi felicidad, mi hogar y mi lugar favorito 🏡❤️",
+            "Gracias por hacerme el hombre más afortunado del mundo 🥰",
+            "¡Nuestros momentos juntos son inolvidables! 💫",
+            "¡Mónica Montserrat, TE AMO MUCHÍSIMO! ❤️🌹"
+        ];
+
+        /* --- BACKGROUND CANVAS SETUP --- */
+        const bgCanvas = document.getElementById('bgCanvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        let bgWidth, bgHeight;
+        let particles = [];
+
+        function resizeBgCanvas() {
+            bgWidth = bgCanvas.width = window.innerWidth;
+            bgHeight = bgCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', () => {
+            resizeBgCanvas();
+            resizeRoseCanvas();
+        });
+        resizeBgCanvas();
+
+        // Background Particle Class (Hearts, Stars & Petals)
+        class Particle {
+            constructor(x, y, type = 'heart') {
+                this.x = x || Math.random() * bgWidth;
+                this.y = y || Math.random() * bgHeight;
+                this.type = type;
+                this.size = Math.random() * 12 + 6;
+                this.speedY = -(Math.random() * 1.5 + 0.5);
+                this.speedX = (Math.random() - 0.5) * 1;
+                this.opacity = Math.random() * 0.7 + 0.3;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotSpeed = (Math.random() - 0.5) * 0.05;
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.rotation += this.rotSpeed;
+                if (this.y < -20) {
+                    this.y = bgHeight + 20;
+                    this.x = Math.random() * bgWidth;
+                }
+            }
+
+            draw() {
+                bgCtx.save();
+                bgCtx.translate(this.x, this.y);
+                bgCtx.rotate(this.rotation);
+                bgCtx.globalAlpha = this.opacity;
+
+                if (this.type === 'heart') {
+                    bgCtx.fillStyle = '#f43f5e';
+                    bgCtx.beginPath();
+                    const topCurveHeight = this.size * 0.3;
+                    bgCtx.moveTo(0, topCurveHeight);
+                    bgCtx.bezierCurveTo(0, 0, -this.size / 2, 0, -this.size / 2, topCurveHeight);
+                    bgCtx.bezierCurveTo(-this.size / 2, (this.size + topCurveHeight) / 2, 0, this.size, 0, this.size);
+                    bgCtx.bezierCurveTo(0, this.size, this.size / 2, (this.size + topCurveHeight) / 2, this.size / 2, topCurveHeight);
+                    bgCtx.bezierCurveTo(this.size / 2, 0, 0, 0, 0, topCurveHeight);
+                    bgCtx.fill();
+                } else if (this.type === 'sparkle') {
+                    bgCtx.fillStyle = '#fef08a';
+                    bgCtx.beginPath();
+                    bgCtx.arc(0, 0, this.size / 3, 0, Math.PI * 2);
+                    bgCtx.fill();
+                }
+                bgCtx.restore();
+            }
+        }
+
+        // Initialize Background Particles
+        for (let i = 0; i < 40; i++) {
+            particles.push(new Particle(null, null, Math.random() > 0.4 ? 'heart' : 'sparkle'));
+        }
+
+        // Sparkle burst on click/tap
+        function spawnSparkles(x, y) {
+            for (let i = 0; i < 18; i++) {
+                const p = new Particle(x, y, 'sparkle');
+                p.speedY = (Math.random() - 0.5) * 6;
+                p.speedX = (Math.random() - 0.5) * 6;
+                p.size = Math.random() * 8 + 4;
+                particles.push(p);
+            }
+        }
+
+        function animateBg() {
+            bgCtx.clearRect(0, 0, bgWidth, bgHeight);
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+            });
+            // Keep array size manageable
+            if (particles.length > 70) {
+                particles.splice(0, particles.length - 70);
+            }
+            requestAnimationFrame(animateBg);
+        }
+        animateBg();
+
+        /* --- DYNAMIC canvas ROSE DRAWING ENGINE --- */
+        const roseCanvas = document.getElementById('roseCanvas');
+        const roseCtx = roseCanvas.getContext('2d');
+
+        function resizeRoseCanvas() {
+            const minDim = Math.min(window.innerWidth * 0.85, 380);
+            roseCanvas.width = minDim;
+            roseCanvas.height = minDim;
+            drawRose();
+        }
+
+        function drawRose() {
+            const w = roseCanvas.width;
+            const h = roseCanvas.height;
+            const centerX = w / 2;
+            const centerY = h / 2 - 10;
+            
+            roseCtx.clearRect(0, 0, w, h);
+
+            // Scale factor increases with click count (bloom phase: 0.3 to 1.1)
+            const bloomProgress = (clickCount / maxClicks);
+            const scale = 0.35 + (bloomProgress * 0.7);
+
+            roseCtx.save();
+            roseCtx.translate(centerX, centerY);
+            roseCtx.scale(scale, scale);
+
+            // 1. Draw Stem
+            roseCtx.beginPath();
+            roseCtx.moveTo(0, 40);
+            roseCtx.bezierCurveTo(-15, 120, 20, 180, 0, 230);
+            roseCtx.lineWidth = 12;
+            roseCtx.strokeStyle = '#15803d';
+            roseCtx.stroke();
+
+            // Stem Thorns
+            roseCtx.fillStyle = '#166534';
+            roseCtx.beginPath();
+            roseCtx.moveTo(-8, 100);
+            roseCtx.lineTo(-22, 108);
+            roseCtx.lineTo(-6, 120);
+            roseCtx.fill();
+
+            roseCtx.beginPath();
+            roseCtx.moveTo(10, 150);
+            roseCtx.lineTo(24, 158);
+            roseCtx.lineTo(8, 170);
+            roseCtx.fill();
+
+            // 2. Draw Leaves
+            // Left Leaf
+            roseCtx.save();
+            roseCtx.translate(-10, 130);
+            roseCtx.rotate(-Math.PI / 4);
+            roseCtx.beginPath();
+            roseCtx.ellipse(0, 0, 40, 18, 0, 0, Math.PI * 2);
+            roseCtx.fillStyle = '#16a34a';
+            roseCtx.fill();
+            roseCtx.lineWidth = 2;
+            roseCtx.strokeStyle = '#4ade80';
+            roseCtx.stroke();
+            roseCtx.restore();
+
+            // Right Leaf
+            roseCtx.save();
+            roseCtx.translate(12, 170);
+            roseCtx.rotate(Math.PI / 5);
+            roseCtx.beginPath();
+            roseCtx.ellipse(0, 0, 45, 20, 0, 0, Math.PI * 2);
+            roseCtx.fillStyle = '#15803d';
+            roseCtx.fill();
+            roseCtx.lineWidth = 2;
+            roseCtx.strokeStyle = '#4ade80';
+            roseCtx.stroke();
+            roseCtx.restore();
+
+            // 3. Draw Rose Sepals
+            roseCtx.fillStyle = '#166534';
+            for (let i = -2; i <= 2; i++) {
+                roseCtx.beginPath();
+                roseCtx.moveTo(0, 25);
+                roseCtx.quadraticCurveTo(i * 20, 50, i * 35, 10);
+                roseCtx.quadraticCurveTo(i * 10, 20, 0, 25);
+                roseCtx.fill();
+            }
+
+            // 4. Draw Layered Rose Petals (Spiraling Mathematical Curves)
+            const layers = Math.floor(8 + (bloomProgress * 18)); // More petals as it blooms
+            const maxRadius = 110 * (0.5 + (bloomProgress * 0.5));
+
+            for (let i = layers; i > 0; i--) {
+                const radius = (i / layers) * maxRadius;
+                const angleOffset = i * 0.8 + (bloomProgress * 0.5);
+                
+                // Color gradient from outer deep crimson to inner bright pink/gold glow
+                const hue = 345 + (i * 2);
+                const lightness = 35 + ((1 - i / layers) * 30);
+                
+                roseCtx.save();
+                roseCtx.rotate(angleOffset);
+
+                // Petal Shape
+                roseCtx.beginPath();
+                roseCtx.moveTo(0, 0);
+                roseCtx.bezierCurveTo(
+                    -radius * 1.2, -radius * 0.8, 
+                    -radius * 0.6, -radius * 1.5, 
+                    0, -radius * 1.3
+                );
+                roseCtx.bezierCurveTo(
+                    radius * 0.6, -radius * 1.5, 
+                    radius * 1.2, -radius * 0.8, 
+                    0, 0
+                );
+
+                // Gradient fill for realistic velvety 3D look
+                const grad = roseCtx.createRadialGradient(0, -radius * 0.5, 5, 0, -radius * 0.5, radius * 1.2);
+                grad.addColorStop(0, `hsl(${hue}, 90%, ${lightness + 15}%)`);
+                grad.addColorStop(0.7, `hsl(${hue}, 85%, ${lightness}%)`);
+                grad.addColorStop(1, `hsl(${hue - 15}, 95%, ${Math.max(15, lightness - 20)}%)`);
+
+                roseCtx.fillStyle = grad;
+                roseCtx.shadowColor = 'rgba(159, 18, 57, 0.4)';
+                roseCtx.shadowBlur = 10;
+                roseCtx.fill();
+
+                // Petal highlight rim
+                roseCtx.lineWidth = 1.5;
+                roseCtx.strokeStyle = `rgba(255, 225, 235, ${0.2 + (i / layers) * 0.3})`;
+                roseCtx.stroke();
+
+                roseCtx.restore();
+            }
+
+            // Central Glowing Core
+            const coreGrad = roseCtx.createRadialGradient(0, 0, 2, 0, 0, 20);
+            coreGrad.addColorStop(0, '#fef08a');
+            coreGrad.addColorStop(0.5, '#f43f5e');
+            coreGrad.addColorStop(1, '#881337');
+            roseCtx.beginPath();
+            roseCtx.arc(0, 0, 15, 0, Math.PI * 2);
+            roseCtx.fillStyle = coreGrad;
+            roseCtx.fill();
+
+            roseCtx.restore();
+        }
+
+        // Initial Rose Setup
+        resizeRoseCanvas();
+
+        /* --- AUDIO SYNTHESIZER (No external audio file needed) --- */
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playChime() {
+            if (!isAudioPlaying) return;
+            initAudio();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            // Create gentle romantic harp/chime sound
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            // Frequency rises as rose blooms
+            const baseFreq = 440 + (clickCount * 40);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(baseFreq, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.5, audioCtx.currentTime + 0.4);
+
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.85);
+        }
+
+        function toggleAudio() {
+            isAudioPlaying = !isAudioPlaying;
+            const soundIcon = document.getElementById('soundIcon');
+            const soundText = document.getElementById('soundText');
+
+            if (isAudioPlaying) {
+                initAudio();
+                soundIcon.className = 'fa-solid fa-volume-high text-rose-400';
+                soundText.innerText = 'Música: Activada ✨';
+                playChime();
+            } else {
+                soundIcon.className = 'fa-solid fa-volume-xmark text-rose-400';
+                soundText.innerText = 'Música: Desactivada';
+            }
+        }
+
+        /* --- INTERACTION ENGINE --- */
+        function triggerInteraction(e) {
+            if (isModalOpen) return;
+
+            // Get click/tap coordinates
+            let clickX = window.innerWidth / 2;
+            let clickY = window.innerHeight / 2;
+
+            if (e) {
+                if (e.touches && e.touches[0]) {
+                    clickX = e.touches[0].clientX;
+                    clickY = e.touches[0].clientY;
+                } else if (e.clientX) {
+                    clickX = e.clientX;
+                    clickY = e.clientY;
+                }
+            }
+
+            // Spawn particles at click location
+            spawnSparkles(clickX, clickY);
+
+            // Sound feedback
+            playChime();
+
+            // Advance bloom progress
+            if (clickCount < maxClicks) {
+                clickCount++;
+            } else {
+                // Finale modal triggers at 10 clicks
+                showLoveModal();
+                return;
+            }
+
+            updateUI();
+        }
+
+        function updateUI() {
+            // 1. Update background scene gradient
+            const bodyBg = document.getElementById('bodyBg');
+            bodyBg.className = `bg-view-${clickCount} min-h-screen w-screen relative overflow-hidden transition-all duration-1000 select-none flex flex-col justify-between items-center text-white`;
+
+            // 2. Update Progress Bar & Counter
+            const progressBar = document.getElementById('progressBar');
+            const clickCounter = document.getElementById('clickCounter');
+            const percentage = (clickCount / maxClicks) * 100;
+            progressBar.style.width = `${percentage}%`;
+            clickCounter.innerText = `${clickCount} / ${maxClicks}`;
+
+            // 3. Redraw Rose Canvas to bigger bloom
+            drawRose();
+
+            // 4. Update Backlight Glow Radius
+            const roseBacklight = document.getElementById('roseBacklight');
+            const glowSize = 12 + (clickCount * 3);
+            roseBacklight.style.transform = `scale(${1 + (clickCount * 0.15)})`;
+            roseBacklight.style.opacity = 0.3 + (clickCount * 0.05);
+
+            // 5. Spawn Toast Message
+            showToastMessage(messages[clickCount - 1]);
+
+            // 6. Check for Max Bloom
+            if (clickCount === maxClicks) {
+                setTimeout(showLoveModal, 800);
+            }
+        }
+
+        function showToastMessage(text) {
+            const container = document.getElementById('toastContainer');
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg glass-panel px-6 py-3 rounded-2xl border border-rose-300/40 text-rose-100 font-medium text-sm sm:text-base text-center shadow-2xl max-w-xs sm:max-w-md mx-auto my-1';
+            toast.innerHTML = text;
+
+            container.appendChild(toast);
+
+            // Remove after animation finishes
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 3000);
+        }
+
+        function showLoveModal() {
+            isModalOpen = true;
+            const modal = document.getElementById('loveModal');
+            const modalCard = document.getElementById('modalCard');
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+            modalCard.classList.remove('scale-90');
+            modalCard.classList.add('scale-100');
+
+            // Burst sparkles
+            for (let i = 0; i < 40; i++) {
+                spawnSparkles(window.innerWidth / 2, window.innerHeight / 2);
+            }
+        }
+
+        function resetBloom() {
+            clickCount = 1;
+            isModalOpen = false;
+
+            const modal = document.getElementById('loveModal');
+            const modalCard = document.getElementById('modalCard');
+
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.classList.remove('opacity-100');
+            modalCard.classList.add('scale-90');
+            modalCard.classList.remove('scale-100');
+
+            updateUI();
+        }
+
+        // Global Event Listeners for Clicking/Tapping anywhere
+        window.addEventListener('click', (e) => {
+            // Prevent triggering on footer buttons or modal content
+            if (e.target.closest('button') || e.target.closest('#modalCard')) return;
+            triggerInteraction(e);
+        });
+
+        window.addEventListener('touchstart', (e) => {
+            if (e.target.closest('button') || e.target.closest('#modalCard')) return;
+            triggerInteraction(e);
+        }, { passive: true });
+
+        // Initial setup run
+        drawRose();
+    </script>
+</body>
+</html>
